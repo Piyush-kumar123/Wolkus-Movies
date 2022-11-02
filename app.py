@@ -2,6 +2,7 @@ from flask import Flask , render_template , request
 import urllib
 import random
 import json
+
 app = Flask(__name__)
 
 
@@ -37,7 +38,7 @@ def search_results():
         return render_template("index.html" , page_name = "WOLKUS MOVIES" , movieList = jsonData , query = movieName)
     except Exception as e:
         print(e)
-        return f"No internet connection. Please try again {e}"
-app.run(debug=True)
-
-
+        return f" No internet connection. Please try again {e}"
+    
+if __name__ == "__main__":
+    app.run(debug=True)
