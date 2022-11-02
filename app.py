@@ -38,9 +38,6 @@ def search_results():
     except Exception as e:
         print(e)
         return f"No internet connection. Please try again {e}"
-
-if __name__ == "__main__":
-    app.run(port=1500)
 app.run(debug=True)
 
 
