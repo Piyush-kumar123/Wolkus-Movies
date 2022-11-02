@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>WOLKUS MOVIES</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- extra -->
+        <link href="https://unpkg.com/tailwindcss@^2.2.7/dist/tailwind.min.css" rel="stylesheet">
+
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+        <script src=
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+              
+
+    
+    </head>
+
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{{url_for('home')}}">WOLKUS MOVIES</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="#!">Action</a></li> -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{url_for('search_results' , Moviequery = 'action')}}">Action</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{{url_for('search_results' , Moviequery = 'comedy')}}">Comedy</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{{url_for('search_results' , Moviequery = 'thriller')}}">Thriller</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{{url_for('search_results' , Moviequery = 'romantic')}}">Romantic</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex" action = "/search">
+                        <input class="form-control me-2" type="search" required placeholder="Search" aria-label="Search" name="Moviequery">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                      </form>
+                </div>
+            </div>
+        </nav>
+
+
+
+        
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">{{page_name}}</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Search all your favourite movies here!</p>
+                    <div class="row text-center">
+                        <form action="/search" method="get">
+                    <div class="input-group py-5  col-12" >
+                        <input type="text" class="form-control" placeholder="Search Any Movie Name" value="{{query}}" name="Moviequery" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <input class="btn btn-primary" type="submit" ></button>
+                        </div>
+                      </div>
+                    </form>
+
+                    </div>
+                </div>
+
+              
+               
+            </div>
+           
+          
+        </header>
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-1 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                   
+                   {% for movie in movieList %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{movie['Poster']}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{movie['Title']}}</h5>
+                                    <!-- Product price-->
+                                    {{movie['Type']}} || {{movie['Year']}}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.imdb.com/title/{{movie['imdbID']}}/">More Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+        <!-- Footer
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; CODE WITH DHRUV</p></div>
+        </footer> -->
+
+
+ <!--Footer- -->
+ <footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-light">Made with ❤ by Piyush Kumar using OMDB API</p></div>
+
+    <footer class="text-gray-40 body-font" style="user-select: auto;">
+        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col" style="user-select: auto;">
+          <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4" style="user-select: auto;">© 2022 Piyush Kumar —
+            <a href="https://twitter.com/mr_piyush110" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank" style="user-select: auto;">@piyush</a>
+          </p>
+          <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start" style="user-select: auto;">
+            <a href="https://twitter.com/mr_piyush110" class="ml-3 text-gray-500" style="user-select: auto;">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24" style="user-select: auto;">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" style="user-select: auto;"></path>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/its.piyush110/" class="ml-3 text-gray-500" style="user-select: auto;">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24" style="user-select: auto;">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" style="user-select: auto;"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01" style="user-select: auto;"></path>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/piyush-kumar-304b06148/" class="ml-3 text-gray-500" style="user-select: auto;">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24" style="user-select: auto;">
+                <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" style="user-select: auto;"></path>
+                <circle cx="4" cy="4" r="2" stroke="none" style="user-select: auto;"></circle>
+              </svg>
+            </a>
+          </span>
+        </div>
+      </footer>
+
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
+
